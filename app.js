@@ -2,7 +2,39 @@
   const form = document.getElementById('todo-form');
   const input = document.getElementById('todo-input');
   const list = document.getElementById('todo-list');
+  const themeToggle = document.getElementById('theme-toggle');
   const STORAGE_KEY = 'todos:v1';
+  const THEME_KEY = 'theme:v1';
+
+  function loadTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    return saved || 'light';
+  }
+
+  function saveTheme(theme) {
+    localStorage.setItem(THEME_KEY, theme);
+  }
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+      themeToggle.textContent = '☀️';
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+      themeToggle.textContent = '🌙';
+    }
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const current = loadTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    saveTheme(next);
+    applyTheme(next);
+  });
+
+  // Initialize theme
+  const currentTheme = loadTheme();
+  applyTheme(currentTheme);
 
   function load() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
