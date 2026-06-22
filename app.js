@@ -3,6 +3,7 @@
   const input = document.getElementById('todo-input');
   const list = document.getElementById('todo-list');
   const themeToggle = document.getElementById('theme-toggle');
+  const emptyState = document.getElementById('empty-state');
   const STORAGE_KEY = 'todos:v1';
   const THEME_KEY = 'theme:v1';
 
@@ -43,6 +44,15 @@
 
   function save(todos){ localStorage.setItem(STORAGE_KEY, JSON.stringify(todos)); }
 
+  function updateEmptyState() {
+    const todos = load();
+    if (todos.length === 0) {
+      emptyState.style.display = 'block';
+    } else {
+      emptyState.style.display = 'none';
+    }
+  }
+
   function render(){
     const todos = load();
     list.innerHTML = '';
@@ -72,7 +82,7 @@
 
       const btn = document.createElement('button');
       btn.className = 'delete-btn';
-      btn.textContent = 'Delete';
+      btn.textContent = '✕ Delete';
       btn.addEventListener('click', () => {
         const remaining = load().filter((_, idx) => idx !== i);
         save(remaining);
@@ -85,6 +95,7 @@
       li.appendChild(btn);
       list.appendChild(li);
     });
+    updateEmptyState();
   }
 
   form.addEventListener('submit', e => {
@@ -96,6 +107,7 @@
     save(todos);
     input.value = '';
     render();
+    input.focus();
   });
 
   // initial render
