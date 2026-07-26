@@ -1,0 +1,13 @@
+{
+  "name": "copilot-webapp-testing-setup",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static web app test helper - adds a script to launch a Node static server",
+  "scripts": {
+    "start": "http-server ./ -p 3000",
+    "start:probe": "http-server ./ -p 3000 -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
