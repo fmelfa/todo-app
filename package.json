@@ -5,9 +5,11 @@
   "description": "Static web app test helper - adds a script to launch a Node static server",
   "scripts": {
     "start": "http-server ./ -p 3000",
-    "start:probe": "http-server ./ -p 3000 -c-1"
+    "start:probe": "http-server ./ -p 3000 -c-1",
+    "test": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.1",
     "http-server": "^14.1.1"
   }
 }
